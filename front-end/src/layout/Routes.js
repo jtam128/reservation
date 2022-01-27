@@ -22,7 +22,6 @@ function Routes() {
         <Redirect to={"/dashboard"} />
       </Route>
 
-
       <Route path="/dashboard">
         <Dashboard date={today()} />
       </Route>
