@@ -216,10 +216,8 @@ function reservationIsDuringBusinessHours(req, res, next) {
 }
 
 
-
 // CREATE
 async function create(req, res) {
-
   const newReservation = { ...req.body.data, status: "booked" };
   const data = await service.create(newReservation);
   res.status(201).json({ data });
@@ -229,13 +227,10 @@ async function create(req, res) {
 async function list(req, res) {
 
   const { date, viewDate, mobile_number } = req.query;
-  // ww..CUR..
   if (date)
   {
-
     const data = await service.listByDate(date);
     res.json({ data });
-
   } else if (viewDate)
   {
     const data = await service.listByDate(viewDate);
@@ -252,6 +247,11 @@ async function list(req, res) {
 
 }
 
+// READ
+function read(req, res) {
+  const data = res.locals.reservation;
+  res.json({ data });
+}
 
 
 module.exports = {
@@ -269,4 +269,5 @@ module.exports = {
     asyncErrorBoundary(create),
   ],
   list: asyncErrorBoundary(list),
+  read: [asyncErrorBoundary(reservationExists), read],
 };
