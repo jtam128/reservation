@@ -21,9 +21,9 @@ build/
 .vscode/
 .vercel
 .screenshots/
+local/
+nm-*/
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-local/
-nm-*/
