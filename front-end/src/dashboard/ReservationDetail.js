@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-
+import ErrorAlert from "../layout/ErrorAlert";
 import { updateReservationStatus } from "../utils/api";
 
 function ReservationDetail({ reservation }) {
     const history = useHistory();
 
-
     const [curReservation, setCurReservation] = useState(reservation);
-    useEffect(() => {
-        if (curReservation.status === "booked" || curReservation.status === null)
-        {
-            setShowSeat(true);
-        }
-    }, [curReservation]);
+    const [error, setError] = useState(null);
 
     const handleCancelRes = (e) => {
         e.preventDefault();
@@ -35,6 +29,7 @@ function ReservationDetail({ reservation }) {
 
     return (
         <div className="card ">
+            <ErrorAlert error={error} />
             <div className="card-body">
                 <h5 className="card-title">
                     Reservation for: {`${curReservation.first_name} ${curReservation.last_name}`}{" "}
