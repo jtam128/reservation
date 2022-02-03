@@ -1,10 +1,23 @@
 .side-bar {
-  background-color: #393a44;
   min-width: 200px;
 }
 
 .main-area {
-  background-color: darkolivegreen;
+  background-color: wheat;
   height: 100%;
   min-height: 100vh;
 }
+
+@media (min-width: 768px) {
+  .main {
+    height: 100%;
+    min-height: 100vh;
+  }
+
+  .side-bar {
+    background-color: rgba(0, 0, 0, .88);
+    min-width: 200px;
+    min-height: 100%;
+  }
+}
+

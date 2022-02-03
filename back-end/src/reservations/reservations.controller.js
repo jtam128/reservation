@@ -2,6 +2,7 @@ const service = require("./reservations.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const hasProperties = require("../errors/hasProperties");
 const onlyValidProperties = require("../errors/onlyValidProperties");
+const { compile } = require("morgan");
 
 const MAIN_REQUIRED_PROPERTIES = [
   "first_name",
@@ -190,6 +191,7 @@ function noReservationsInPast(req, res, next) {
   const { reservation_date, reservation_time } = req.body.data;
   const presentDate = Date.now();
   const newReservationDate = new Date(`${reservation_date} ${reservation_time}`).valueOf();
+
   if (newReservationDate > presentDate)
   {
     return next();
@@ -253,8 +255,24 @@ function read(req, res) {
   res.json({ data });
 }
 
+// UPDATE
+async function update(req, res) {
+  const updatedReservation = { ...req.body.data };
+  const { reservationId } = req.params;
+  const data = await service.update(reservationId, updatedReservation);
+  res.status(200).json({ data });
+}
+
+async function updateStatus(req, res) {
+  const { status } = req.body.data;
+  const { reservationId } = req.params;
+  const data = await service.updateStatus(reservationId, status);
+  res.status(200).json({ data });
+}
+
 
 module.exports = {
+
   create: [
     hasOnlyValidProperties,
     hasRequiredProperties,
@@ -268,6 +286,31 @@ module.exports = {
     reservationIsDuringBusinessHours,
     asyncErrorBoundary(create),
   ],
+
   list: asyncErrorBoundary(list),
+
   read: [asyncErrorBoundary(reservationExists), read],
+
+  update: [
+    asyncErrorBoundary(reservationExists),
+    reservationIdIsCorrectIfPresent,
+    hasOnlyValidUpdateProperties,
+    hasRequiredUpdateProperties,
+    hasValidDate,
+    hasValidTime,
+    hasValidPeople,
+    statusIsBooked,
+    noReservationsOnTuesdays,
+    noReservationsInPast,
+    reservationIsDuringBusinessHours,
+    asyncErrorBoundary(update),
+  ],
+  updateStatus: [
+    asyncErrorBoundary(reservationExists),
+    hasOnlyStatus,
+    hasRequiredStatus,
+    hasValidStatus,
+    statusIsNotFinished,
+    asyncErrorBoundary(updateStatus),
+  ],
 };
