@@ -31,21 +31,26 @@ ofc
  *  If the response is not in the 200 - 399 range the promise is rejected.
  */
 async function fetchJson(url, options, onCancel) {
-  try {
+  try
+  {
     const response = await fetch(url, options);
 
-    if (response.status === 204) {
+    if (response.status === 204)
+    {
       return null;
     }
 
     const payload = await response.json();
 
-    if (payload.error) {
+    if (payload.error)
+    {
       return Promise.reject({ message: payload.error });
     }
     return payload.data;
-  } catch (error) {
-    if (error.name !== "AbortError") {
+  } catch (error)
+  {
+    if (error.name !== "AbortError")
+    {
       console.error(error.stack);
       throw error;
     }
@@ -78,4 +83,37 @@ export async function createReservation(data, signal) {
   };
   return await fetchJson(url, options);
 }
+
+
+export async function readReservation(reservationId, signal) {
+  const url = new URL(`${API_BASE_URL}/reservations/${reservationId}`);
+  return await fetchJson(url, { headers, signal }, [])
+    .then(formatReservationDate)
+    .then(formatReservationTime);
+}
+
+export async function updateReservation(data, reservation_id, signal) {
+  const url = `${API_BASE_URL}/reservations/${reservation_id}`;
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({ data }),
+    signal,
+  };
+  return await fetchJson(url, options);
+}
+
+export async function updateReservationStatus(data, reservation_id, signal) {
+  const url = `${API_BASE_URL}/reservations/${reservation_id}/status`;
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({ data }),
+    signal,
+  };
+  return await fetchJson(url, options);
+}
+
+
+
 

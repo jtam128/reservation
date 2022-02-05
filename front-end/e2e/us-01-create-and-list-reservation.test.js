@@ -10,6 +10,7 @@ const onPageConsole = (msg) =>
     console.log(`<LOG::page console ${msg.type()}>`, ...eventJson)
   );
 
+
 describe("US-01 - Create and list reservations - E2E", () => {
   let page;
   let browser;
