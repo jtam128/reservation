@@ -11,5 +11,10 @@ router
   .get(controller.list)
   .all(methodNotAllowed);
 
+router
+  .route("/:reservationId([0-9]+)")
+  .get(controller.read)
+  .put(controller.update)
+  .all(methodNotAllowed);
 
 module.exports = router;
