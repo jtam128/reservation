@@ -5,9 +5,28 @@ import { updateReservationStatus } from "../utils/api";
 
 function ReservationDetail({ reservation }) {
     const history = useHistory();
-
     const [curReservation, setCurReservation] = useState(reservation);
+    const [showSeat, setShowSeat] = useState(false);
     const [error, setError] = useState(null);
+
+    useEffect(() => {
+        if (curReservation.status === "booked" || curReservation.status === null)
+        {
+            setShowSeat(true);
+        }
+    }, [curReservation]);
+
+    const handleSeat = (e) => {
+        e.preventDefault();
+        setError(null);
+        setShowSeat(false);
+        updateReservationStatus({ status: "seated" }, curReservation.reservation_id)
+            .then((response) => {
+                setCurReservation(response);
+                history.push(`/reservations/${curReservation.reservation_id}/seat`);
+            })
+            .catch(setError);
+    }
 
     const handleCancelRes = (e) => {
         e.preventDefault();
