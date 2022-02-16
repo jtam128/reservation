@@ -136,7 +136,7 @@ async function create(req, res) {
   const data = await service.create(table);
   res.status(201).json({ data });
 }
-
+``
 function read(req, res) {
   const data = res.locals.table;
   res.json({ data });

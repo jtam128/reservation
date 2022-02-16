@@ -1,4 +1,3 @@
-
 const knex = require("../db/connection");
 
 function create(reservation) {
@@ -33,7 +32,6 @@ function list() {
   return knex("reservations");
 }
 
-// ww..CUR..
 function listByDate(reservation_date) {
   return knex("reservations")
     .select("*")

@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import ErrorAlert from "../layout/ErrorAlert";
+import TableDetail from "./TableDetail";
+import { listReservations, listTables } from "../utils/api";
 
-
-import { listReservations } from "../utils/api";
 import { previous, next, today } from "../utils/date-time";
 import useQuery from "../utils/useQuery";
 import ReservationDetail from "./ReservationDetail";
 
 function Dashboard() {
+
   const date = today();
 
   const [reservations, setReservations] = useState(null);
   const [viewDate, setViewDate] = useState(date);
   const [error, setError] = useState(null);
-
+  const [tables, setTables] = useState(null);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -31,6 +32,16 @@ function Dashboard() {
     }
     return () => abortController.abort();
   }, [date, viewDate]);
+
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    setError(null);
+    listTables()
+      .then(setTables)
+      .catch(setError);
+    return () => abortController.abort();
+  }, []);
 
 
   const query = useQuery();
@@ -85,6 +96,17 @@ function Dashboard() {
               </div>
             ))}
 
+          </div>
+        </div>
+
+        <div className="container">
+          <h3 className="d-flex m-3 justify-content-center text-white major-mono h1">Tables</h3>
+          <div className="row">
+            {tables && tables.map((table) => (
+              <div className="col-md-6  col-lg-3 mb-3" key={table.table_id}>
+                <TableDetail table={table} />
+              </div>
+            ))}
           </div>
         </div>
 

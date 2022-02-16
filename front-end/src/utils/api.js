@@ -84,7 +84,6 @@ export async function createReservation(data, signal) {
   return await fetchJson(url, options);
 }
 
-
 export async function readReservation(reservationId, signal) {
   const url = new URL(`${API_BASE_URL}/reservations/${reservationId}`);
   return await fetchJson(url, { headers, signal }, [])
@@ -114,6 +113,65 @@ export async function updateReservationStatus(data, reservation_id, signal) {
   return await fetchJson(url, options);
 }
 
+// TABLE
 
+export async function createTable(data, signal) {
+  const url = `${API_BASE_URL}/tables`;
+  const options = {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ data }),
+    signal,
+  };
+  return await fetchJson(url, options);
+}
 
+/** PUT an update to a table's status in the database
+ *  for assigned a reservation to a table
+ *
+ * @param table_id
+ * the id of the specified table
+ * @param reservation_id
+ *  the id of the desired reservation
+ * @param signal
+ *  optional AbortController.signal
+ * @returns {Promise<table>}
+ *  a promise that resolves the saved table
+ */
+export async function updateSeatReservation(table_id, reservation_id, signal) {
+  const url = `${API_BASE_URL}/tables/${table_id}/seat`;
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({ data: { reservation_id } }),
+    signal,
+  };
+  return await fetchJson(url, options);
+}
 
+export async function deleteReservationId(table_id, signal) {
+  const url = `${API_BASE_URL}/tables/${table_id}/seat`;
+  const options = {
+    method: "DELETE",
+    headers,
+    body: JSON.stringify({ data: { table_id } }),
+    signal,
+  };
+  return await fetchJson(url, options);
+}
+
+export async function listTables(signal) {
+  const url = new URL(`${API_BASE_URL}/tables`);
+  return await fetchJson(url, { headers, signal }, []);
+}
+
+export async function deleteTable(table_id, signal) {
+  const url = `${API_BASE_URL}/tables`;
+  const options = {
+    method: "DELETE",
+    headers,
+    body: JSON.stringify({ data: { table_id } }),
+    signal,
+  };
+  return await fetchJson(url, options);
+}

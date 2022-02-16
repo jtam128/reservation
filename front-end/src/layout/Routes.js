@@ -4,6 +4,8 @@ import Dashboard from "../dashboard/Dashboard";
 import NotFound from "./NotFound";
 import ReservationNew from "./ReservationNew";
 import ReservationEdit from "./ReservationEdit";
+import ReservationSeat from "./ReservationSeat";
+import TableNew from "./TableNew";
 
 /**
  * Defines all the routes for the application.
@@ -22,12 +24,18 @@ function Routes() {
         <Redirect to={"/dashboard"} />
       </Route>
 
+      <Route path="/reservations/:reservation_id/seat">
+        <ReservationSeat />
+      </Route>
       <Route exact path="/reservations/new">
         <ReservationNew />
       </Route>
-
       <Route path="/reservations/:reservation_id/edit">
         <ReservationEdit />
+      </Route>
+
+      <Route path="/tables/new">
+        <TableNew />
       </Route>
 
       <Route path="/dashboard">
@@ -37,6 +45,7 @@ function Routes() {
       <Route>
         <NotFound />
       </Route>
+
     </Switch>
   );
 }

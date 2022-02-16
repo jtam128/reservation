@@ -5,8 +5,10 @@ import ErrorAlert from "./ErrorAlert";
 import ReservationForm from "./ReservationForm";
 
 function ReservationEdit() {
+
     const history = useHistory();
     const params = useParams();
+
 
     const initialFormData = {
         first_name: "",
@@ -19,10 +21,10 @@ function ReservationEdit() {
     };
 
     const [formData, setFormData] = useState(initialFormData);
-
     const [error, setError] = useState(null);
     const [reservations, setReservations] = useState([]);
     const [currentReservation, setCurrentReservation] = useState({});
+
 
     useEffect(() => {
         const abortController = new AbortController();

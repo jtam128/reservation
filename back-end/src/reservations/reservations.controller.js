@@ -2,7 +2,6 @@ const service = require("./reservations.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const hasProperties = require("../errors/hasProperties");
 const onlyValidProperties = require("../errors/onlyValidProperties");
-const { compile } = require("morgan");
 
 const MAIN_REQUIRED_PROPERTIES = [
   "first_name",
@@ -53,7 +52,6 @@ const hasRequiredUpdateProperties = hasProperties(UPDATE_REQUIRED_PROPERTIES);
 const hasOnlyStatus = onlyValidProperties(["status"]);
 const hasRequiredStatus = hasProperties(["status"]);
 
-// VALIDATION MIDDLEWARES
 async function reservationExists(req, res, next) {
   const { reservationId } = req.params;
   const reservation = await service.read(reservationId);
@@ -278,7 +276,6 @@ module.exports = {
     hasRequiredProperties,
     hasValidDate,
     hasValidTime,
-
     hasValidPeople,
     statusIsBookedIfPresent,
     noReservationsOnTuesdays,
