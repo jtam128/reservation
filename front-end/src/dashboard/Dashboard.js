@@ -100,7 +100,7 @@ function Dashboard() {
         </div>
 
         <div className="container">
-          <h3 className="d-flex m-3 justify-content-center text-white major-mono h1">Tables</h3>
+          <h3 className="d-flex m-3 justify-content-center  h1">Tables</h3>
           <div className="row">
             {tables && tables.map((table) => (
               <div className="col-md-6  col-lg-3 mb-3" key={table.table_id}>
