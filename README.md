@@ -80,14 +80,14 @@ This application has features that allows the user, which are restaurant personn
 ## Build instructions:
 Use the following command to install app : 
 ```
-npm install --legacy-peer-deps
+npm install
 ```
 
 ---
-## Testing instructions:
-Use the following command to run all tests :
+## Startup instructions:
+Use the following command to start up the app :
 ```
-npm run test
+npm start
 ```
 
 
