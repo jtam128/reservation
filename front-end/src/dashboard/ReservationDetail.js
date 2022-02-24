@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import ErrorAlert from "../layout/ErrorAlert";
 import { updateReservationStatus } from "../utils/api";
@@ -6,27 +6,7 @@ import { updateReservationStatus } from "../utils/api";
 function ReservationDetail({ reservation }) {
     const history = useHistory();
     const [currentReservation, setCurrentReservation] = useState(reservation);
-    const [showSeat, setShowSeat] = useState(false);
     const [error, setError] = useState(null);
-
-    useEffect(() => {
-        if (currentReservation.status === "booked" || currentReservation.status === null)
-        {
-            setShowSeat(true);
-        }
-    }, [currentReservation]);
-
-    const handleSeat = (e) => {
-        e.preventDefault();
-        setError(null);
-        setShowSeat(false);
-        updateReservationStatus({ status: "seated" }, currentReservation.reservation_id)
-            .then((response) => {
-                setCurrentReservation(response);
-                history.push(`/reservations/${currentReservation.reservation_id}/seat`);
-            })
-            .catch(setError);
-    }
 
     const handleCancelRes = (e) => {
         e.preventDefault();
@@ -45,6 +25,7 @@ function ReservationDetail({ reservation }) {
         }
     }
 
+
     return (
         <div className="card ">
             <ErrorAlert error={error} />
@@ -56,6 +37,7 @@ function ReservationDetail({ reservation }) {
                 <p className="card-text">Phone Number: {currentReservation.mobile_number}</p>
 
                 <p className="card-text">Time: {currentReservation.reservation_time}</p>
+
                 <p className="card-text">Party Size: {currentReservation.people}</p>
 
                 <p data-reservation-id-status={currentReservation.reservation_id}>
@@ -85,6 +67,7 @@ function ReservationDetail({ reservation }) {
                             {" "}
                             Edit
                         </a>
+
                         <button
                             onClick={handleCancelRes}
                             className="btn btn-danger "
@@ -95,7 +78,7 @@ function ReservationDetail({ reservation }) {
                     </div>
                 ) : null}
             </div>
-        </div>
+        </div >
     )
 }
 

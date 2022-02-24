@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import ErrorAlert from "../layout/ErrorAlert";
-import { deleteReservationId, deleteTable, updateReservationStatus } from "../utils/api";
+import { deleteReservationId, updateReservationStatus } from "../utils/api";
 
 function TableDetail({ table }) {
     const history = useHistory();

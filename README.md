@@ -1,4 +1,4 @@
-# Restaurant Reservation APP
+# Reservation APP
 
 This application has features that allows the user, which are restaurant personnel, to manage reservations made by customers. It opens up to the Dashboard which is where the user can see an overview of reservations from the past, today, and future as well as a section that shows available and occupied tables. Within each reservation detail, there are "Seat", "Edit", and "Cancel" buttons to allow for changes to be made to a reservation, as needed. Other sections of the application allow the user to create reservations, create tables, and search for a reservation by phone number.
 
@@ -19,7 +19,7 @@ This application has features that allows the user, which are restaurant personn
 
 ---
 ## Link to live application: 
-- [Live Link](https://resres-app-client.herokuapp.com)
+- [Live Link](https://reservation-nine.vercel.app/dashboard)
 
 ---
 ## API Routes:
@@ -60,6 +60,7 @@ This application has features that allows the user, which are restaurant personn
 
 ### Frontend/Client
 - React
+- JavaScript
 - HTML
 - CSS
 - Bootstrap
@@ -72,9 +73,11 @@ This application has features that allows the user, which are restaurant personn
 - DBeaver
 - PostgreSQL 
 
+
 ### Deploymnet 
 - Monorepo
-- Heruku
+- Heruku - back end server
+- Vercel - front end server
 
 ---
 ## Build instructions:
@@ -89,5 +92,4 @@ Use the following command to start up the app :
 ```
 npm start
 ```
-
 
